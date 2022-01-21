@@ -124,10 +124,10 @@ dmypy.json
 .pyre/
 
 # Image
-.jpg
+*.jpg
 
 # excel
-.xlsx
+*.xlsx
 
 # font
-.ttf
+*.ttf
