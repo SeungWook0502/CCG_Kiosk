@@ -12,7 +12,6 @@ import pandas as pd
 import openpyxl
 
 Title = [['Monitor','monitor','<MonitorScreen>:'],['Hub','hub','<HubScreen>:'],['Lan Card','lanCard','<LanCardScreen>:'],['Keyborad&Mouse','kNm','<KnMScreen>:'],['Mini PC','miniPC','<MiniPCScreen>:'],['Camera','camera','<CameraScreen>:'],['ETC','etc','<ETCScreen>:']]
-subTitle_kr = ['번호', '장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜']
 excel_path = './list.xlsx'
 fontName = './font.ttf'
 
@@ -101,17 +100,6 @@ Screen_bottom = """
 
 """
 
-
-
-Screen_subTitle = ""
-for sub_title in subTitle_kr:
-    Screen_subTitle = Screen_subTitle + """
-            Label:
-                text: '""" + sub_title + """'
-                font_name: '""" + fontName + """'
-                size_hint: (0.1, 1)
-"""
-
 #####################################################################
 # monitor content
 
@@ -151,6 +139,21 @@ for i in range(len(monitor_excel.index), 30):
                 
 """
 
+monitor_subTitle = ""
+for sub_title in monitor_excel.columns:
+    monitor_subTitle = monitor_subTitle + """
+            TextInput:
+                text: '""" + sub_title + """'
+                size_hint: (0.1, 1)
+                disabled_foreground_color: (0, 0, 0, 1)
+                background_color: (0, 0, 0, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: monitor_subtitle_""" + sub_title + """
+"""
+
 
 #####################################################################
 # hub content
@@ -185,6 +188,20 @@ for i in range(len(hub_excel.index), 30):
                 id: hub_cell""" + str(i) + str(j) + """
 """
 
+hub_subTitle = ""
+for sub_title in hub_excel.columns:
+    hub_subTitle = hub_subTitle + """
+            TextInput:
+                text: '""" + sub_title + """'
+                size_hint: (0.1, 1)
+                disabled_foreground_color: (0, 0, 0, 1)
+                background_color: (0, 0, 0, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: hub_subtitle_""" + sub_title + """
+"""
 
 #####################################################################
 # lancard content
@@ -220,6 +237,21 @@ for i in range(len(lanCard_excel.index), 30):
                 id: lanCard_cell""" + str(i) + str(j) + """
 """
 
+lanCard_subTitle = ""
+for sub_title in lanCard_excel.columns:
+    lanCard_subTitle = lanCard_subTitle + """
+            TextInput:
+                text: '""" + sub_title + """'
+                size_hint: (0.1, 1)
+                disabled_foreground_color: (0, 0, 0, 1)
+                background_color: (0, 0, 0, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: lanCard_subtitle_""" + sub_title + """
+"""
+
 #####################################################################
 # keyboard&mouse content
 
@@ -251,6 +283,21 @@ for i in range(len(kNm_excel.index), 30):
                 walign: 'center'
                 font_name: '""" + fontName + """'
                 id: kNm_cell""" + str(i) + str(j) + """
+"""
+
+kNm_subTitle = ""
+for sub_title in kNm_excel.columns:
+    kNm_subTitle = kNm_subTitle + """
+            TextInput:
+                text: '""" + sub_title + """'
+                size_hint: (0.1, 1)
+                disabled_foreground_color: (0, 0, 0, 1)
+                background_color: (0, 0, 0, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: kNm_subtitle_""" + sub_title + """
 """
 
 #####################################################################
@@ -286,6 +333,21 @@ for i in range(len(miniPC_excel.index), 30):
                 id: miniPC_cell""" + str(i) + str(j) + """
 """
 
+miniPC_subTitle = ""
+for sub_title in miniPC_excel.columns:
+    miniPC_subTitle = miniPC_subTitle + """
+            TextInput:
+                text: '""" + sub_title + """'
+                size_hint: (0.1, 1)
+                disabled_foreground_color: (0, 0, 0, 1)
+                background_color: (0, 0, 0, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: miniPC_subtitle_""" + sub_title + """
+"""
+
 #####################################################################
 # camera content
 
@@ -317,6 +379,21 @@ for i in range(len(camera_excel.index), 30):
                 walign: 'center'
                 font_name: '""" + fontName + """'
                 id: camera_cell""" + str(i) + str(j) + """
+"""
+
+camera_subTitle = ""
+for sub_title in camera_excel.columns:
+    camera_subTitle = camera_subTitle + """
+            TextInput:
+                text: '""" + sub_title + """'
+                size_hint: (0.1, 1)
+                disabled_foreground_color: (0, 0, 0, 1)
+                background_color: (0, 0, 0, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: camera_subtitle_""" + sub_title + """
 """
 
 #####################################################################
@@ -352,29 +429,43 @@ for i in range(len(etc_excel.index), 30):
                 id: etc_cell""" + str(i) + str(j) + """
 """
 
+etc_subTitle = ""
+for sub_title in etc_excel.columns:
+    etc_subTitle = etc_subTitle + """
+            TextInput:
+                text: '""" + sub_title + """'
+                size_hint: (0.1, 1)
+                disabled_foreground_color: (0, 0, 0, 1)
+                background_color: (0, 0, 0, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: etc_subtitle_""" + sub_title + """
+"""
 
 
 #####################################################################
 # moni hub lan km pc camera etc
 
-Monitor = Title[0][2]+Screen_top+str(len(monitor_excel)+3+(30-len(monitor_excel.index)))+   Screen_back+Title[0][0]+Screen_save
-hub     = Title[1][2]+Screen_top+str(len(hub_excel)+3+(30-len(hub_excel.index)))+       Screen_back+Title[1][0]+Screen_save
-lanCard = Title[2][2]+Screen_top+str(len(lanCard_excel)+3+(30-len(lanCard_excel.index)))+   Screen_back+Title[2][0]+Screen_save
-KnM     = Title[3][2]+Screen_top+str(len(kNm_excel)+3+(30-len(kNm_excel.index)))+       Screen_back+Title[3][0]+Screen_save
-miniPC  = Title[4][2]+Screen_top+str(len(miniPC_excel)+3+(30-len(miniPC_excel.index)))+    Screen_back+Title[4][0]+Screen_save
-camera  = Title[5][2]+Screen_top+str(len(camera_excel)+3+(30-len(camera_excel.index)))+    Screen_back+Title[5][0]+Screen_save
-etc     = Title[6][2]+Screen_top+str(len(etc_excel)+3+(30-len(etc_excel.index)))+       Screen_back+Title[6][0]+Screen_save
+Monitor = Title[0][2]+Screen_top+str(len(monitor_excel)+    3+(30-len(monitor_excel.index)))+   Screen_back+Title[0][0]+Screen_save
+hub     = Title[1][2]+Screen_top+str(len(hub_excel)+        3+(30-len(hub_excel.index)))+       Screen_back+Title[1][0]+Screen_save
+lanCard = Title[2][2]+Screen_top+str(len(lanCard_excel)+    3+(30-len(lanCard_excel.index)))+   Screen_back+Title[2][0]+Screen_save
+KnM     = Title[3][2]+Screen_top+str(len(kNm_excel)+        3+(30-len(kNm_excel.index)))+       Screen_back+Title[3][0]+Screen_save
+miniPC  = Title[4][2]+Screen_top+str(len(miniPC_excel)+     3+(30-len(miniPC_excel.index)))+    Screen_back+Title[4][0]+Screen_save
+camera  = Title[5][2]+Screen_top+str(len(camera_excel)+     3+(30-len(camera_excel.index)))+    Screen_back+Title[5][0]+Screen_save
+etc     = Title[6][2]+Screen_top+str(len(etc_excel)+        3+(30-len(etc_excel.index)))+       Screen_back+Title[6][0]+Screen_save
 
 
 Builder.load_string(
-                    Main+   Main_Button+       Screen_bottom+
-                    Monitor+Screen_subTitle+   monitor_sheet+  Screen_bottom+
-                    KnM+    Screen_subTitle+   kNm_sheet+      Screen_bottom+
-                    hub+    Screen_subTitle+   hub_sheet+      Screen_bottom+
-                    lanCard+Screen_subTitle+   lanCard_sheet+  Screen_bottom+
-                    miniPC+ Screen_subTitle+   miniPC_sheet+   Screen_bottom+
-                    camera+ Screen_subTitle+   camera_sheet+   Screen_bottom+
-                    etc+    Screen_subTitle+   etc_sheet+      Screen_bottom
+                    Main+       Main_Button+        Screen_bottom+
+                    Monitor+    monitor_subTitle+   monitor_sheet+  Screen_bottom+
+                    KnM+        kNm_subTitle+       kNm_sheet+      Screen_bottom+
+                    hub+        hub_subTitle+       hub_sheet+      Screen_bottom+
+                    lanCard+    lanCard_subTitle+   lanCard_sheet+  Screen_bottom+
+                    miniPC+     miniPC_subTitle+    miniPC_sheet+   Screen_bottom+
+                    camera+     camera_subTitle+    camera_sheet+   Screen_bottom+
+                    etc+        etc_subTitle+       etc_sheet+      Screen_bottom
 )
 
 
@@ -397,12 +488,14 @@ class MonitorScreen(Screen):
                 sheet.append(sheet_row)
                 sheet_row = []
                 i=0
-        print(len(self.ids)/9)
 
 
-        monitor_df = pd.DataFrame(sheet, columns=['번호', '장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜'])
+        monitor_df = pd.DataFrame(sheet)
 
         save = pd.ExcelWriter(excel_path, engine='xlsxwriter')
+        monitor_df = monitor_df.rename(columns=monitor_df.iloc[0])
+        monitor_df = monitor_df.drop(monitor_df.index[0])
+
 
         monitor_df.to_excel(save, sheet_name = 'monitor', index = False)
         hub_excel.to_excel(save, sheet_name = 'hub', index = False)
@@ -413,6 +506,8 @@ class MonitorScreen(Screen):
         etc_excel.to_excel(save, sheet_name = 'etc', index = False)
 
         save.save()
+
+        monitor_excel = pd.read_excel(excel_path, sheet_name = Title[0][1], index_col=None)
 
 class HubScreen(Screen):
     def save_file(self):
@@ -431,9 +526,11 @@ class HubScreen(Screen):
                 sheet_row = []
                 i=0
 
-        hub_df = pd.DataFrame(sheet, columns=['번호', '장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜'])
+        hub_df = pd.DataFrame(sheet)
 
         save = pd.ExcelWriter(excel_path, engine='xlsxwriter')
+        hub_df = hub_df.rename(columns=hub_df.iloc[0])
+        hub_df = hub_df.drop(hub_df.index[0])
 
         monitor_excel.to_excel(save, sheet_name = 'monitor', index = False)
         hub_df.to_excel(save, sheet_name = 'hub', index = False)
@@ -444,6 +541,9 @@ class HubScreen(Screen):
         etc_excel.to_excel(save, sheet_name = 'etc', index = False)
 
         save.save()
+
+        hub_excel = pd.read_excel(excel_path, sheet_name = Title[1][1], index_col=None)
+
 
 class LanCardScreen(Screen):
     def save_file(self):
@@ -462,9 +562,11 @@ class LanCardScreen(Screen):
                 sheet_row = []
                 i=0
 
-        lanCard_df = pd.DataFrame(sheet, columns=['번호', '장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜'])
+        lanCard_df = pd.DataFrame(sheet)
 
         save = pd.ExcelWriter(excel_path, engine='xlsxwriter')
+        lanCard_df = lanCard_df.rename(columns=lanCard_df.iloc[0])
+        lanCard_df = lanCard_df.drop(lanCard_df.index[0])
 
         monitor_excel.to_excel(save, sheet_name = 'monitor', index = False)
         hub_excel.to_excel(save, sheet_name = 'hub', index = False)
@@ -475,6 +577,8 @@ class LanCardScreen(Screen):
         etc_excel.to_excel(save, sheet_name = 'etc', index = False)
 
         save.save()
+
+        lanCard_excel = pd.read_excel(excel_path, sheet_name = Title[2][1], index_col=None)
 
 class KnMScreen(Screen):
     def save_file(self):
@@ -493,9 +597,11 @@ class KnMScreen(Screen):
                 sheet_row = []
                 i=0
 
-        kNm_df = pd.DataFrame(sheet, columns=['번호','장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜'])
+        kNm_df = pd.DataFrame(sheet)
 
         save = pd.ExcelWriter(excel_path, engine='xlsxwriter')
+        kNm_df = kNm_df.rename(columns=kNm_df.iloc[0])
+        kNm_df = kNm_df.drop(kNm_df.index[0])
 
         monitor_excel.to_excel(save, sheet_name = 'monitor', index = False)
         hub_excel.to_excel(save, sheet_name = 'hub', index = False)
@@ -506,6 +612,8 @@ class KnMScreen(Screen):
         etc_excel.to_excel(save, sheet_name = 'etc', index = False)
 
         save.save()
+
+        kNm_excel = pd.read_excel(excel_path, sheet_name = Title[3][1], index_col=None)
 
 class MiniPCScreen(Screen):
     def save_file(self):
@@ -524,9 +632,11 @@ class MiniPCScreen(Screen):
                 sheet_row = []
                 i=0
 
-        miniPC_df = pd.DataFrame(sheet, columns=['번호', '장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜'])
+        miniPC_df = pd.DataFrame(sheet)
 
         save = pd.ExcelWriter(excel_path, engine='xlsxwriter')
+        miniPC_df = miniPC_df.rename(columns=miniPC_df.iloc[0])
+        miniPC_df = miniPC_df.drop(miniPC_df.index[0])
 
         monitor_excel.to_excel(save, sheet_name = 'monitor', index = False)
         hub_excel.to_excel(save, sheet_name = 'hub', index = False)
@@ -537,6 +647,8 @@ class MiniPCScreen(Screen):
         etc_excel.to_excel(save, sheet_name = 'etc', index = False)
 
         save.save()
+
+        miniPC_excel = pd.read_excel(excel_path, sheet_name = Title[4][1], index_col=None)
 
 class CameraScreen(Screen):
     def save_file(self):
@@ -555,9 +667,12 @@ class CameraScreen(Screen):
                 sheet_row = []
                 i=0
 
-        camera_df = pd.DataFrame(sheet, columns=['번호', '장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜'])
+        camera_df = pd.DataFrame(sheet)
 
         save = pd.ExcelWriter(excel_path, engine='xlsxwriter')
+        camera_df = camera_df.rename(columns=camera_df.iloc[0])
+        camera_df = camera_df.drop(camera_df.index[0])
+
 
         monitor_excel.to_excel(save, sheet_name = 'monitor', index = False)
         hub_excel.to_excel(save, sheet_name = 'hub', index = False)
@@ -568,6 +683,8 @@ class CameraScreen(Screen):
         etc_excel.to_excel(save, sheet_name = 'etc', index = False)
 
         save.save()
+        
+        camera_excel = pd.read_excel(excel_path, sheet_name = Title[5][1], index_col=None)
 
 class EtcScreen(Screen):
     def save_file(self):
@@ -586,9 +703,11 @@ class EtcScreen(Screen):
                 sheet_row = []
                 i=0
 
-        etc_df = pd.DataFrame(sheet, columns=['번호', '장소', '위치', '자산성 물품', '사용자', '반출날짜', '반출위치', '책임자', '회수날짜'])
+        etc_df = pd.DataFrame(sheet)
 
         save = pd.ExcelWriter(excel_path, engine='xlsxwriter')
+        etc_df = etc_df.rename(columns=etc_df.iloc[0])
+        etc_df = etc_df.drop(etc_df.index[0])
 
         monitor_excel.to_excel(save, sheet_name = 'monitor', index = False)
         hub_excel.to_excel(save, sheet_name = 'hub', index = False)
@@ -600,6 +719,7 @@ class EtcScreen(Screen):
 
         save.save()
 
+        etc_excel = pd.read_excel(excel_path, sheet_name = Title[6][1], index_col=None)
 
 class CCG(App):
     def build(self):
