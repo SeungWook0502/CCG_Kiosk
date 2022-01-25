@@ -24,6 +24,11 @@ miniPC_excel = pd.read_excel(excel_path, sheet_name = Title[4][1], index_col=Non
 camera_excel = pd.read_excel(excel_path, sheet_name = Title[5][1], index_col=None)
 etc_excel = pd.read_excel(excel_path, sheet_name = Title[6][1], index_col=None)
 
+
+light_gray = ["2.5, 2.5, 2.5, 255", "192, 192, 192, .9", ".9, .9, .9, 6"]
+dark_gray = ["2, 2, 2, 255", "128, 128, 128, .6", "0.7, 0.7, 0.7, 2"]
+check_white = "0, 0, 0, 1"
+
 #####################################################################
 # main screen
 
@@ -32,7 +37,7 @@ Main = """
     GridLayout:
         cols: 1
         size_hint: (0.8, 1)
-        background_color: (1, 1, 1, 1)
+        background_color: (255, 255, 255, 1)
         pos_hint: {"center_x": 0.5}
         BoxLayout:
             background_color: (1, 1, 1, 1)
@@ -108,18 +113,24 @@ monitor_sheet = ""
 for i in range(0,len(monitor_excel.index)):
     monitor_sheet = monitor_sheet + """
         BoxLayout:
-            name: 'content_bl'
-            background_color: (1, 1, 1, 1)
 """
     for j in range(0, 9):
-
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
         if j in [4,7]: 
             monitor_sheet = monitor_sheet+ """
             Spinner:
                 text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -132,8 +143,8 @@ for i in range(0,len(monitor_excel.index)):
             Button:
                 text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -143,10 +154,15 @@ for i in range(0,len(monitor_excel.index)):
         elif j == 3:
             monitor_sheet = monitor_sheet + """
             CheckBox:
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -163,6 +179,8 @@ for i in range(0,len(monitor_excel.index)):
             TextInput:
                 text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -173,17 +191,24 @@ for i in range(0,len(monitor_excel.index)):
 for i in range(len(monitor_excel.index), 30):
     monitor_sheet = monitor_sheet + """
         BoxLayout:
-            name: 'content_bl'
-            background_color: (1, 1, 1, 1)
 """
     for j in range(0,9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
         if j in [4, 7]:
             monitor_sheet = monitor_sheet+ """
             Spinner:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -196,8 +221,8 @@ for i in range(len(monitor_excel.index), 30):
             Button:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -207,10 +232,15 @@ for i in range(len(monitor_excel.index), 30):
         elif j == 3:
             monitor_sheet = monitor_sheet + """
             CheckBox:
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -221,6 +251,8 @@ for i in range(len(monitor_excel.index), 30):
             monitor_sheet = monitor_sheet+ """
             TextInput:
                 text: ''
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 font_name: '""" + fontName + """'
                 halign: 'center'
@@ -254,14 +286,23 @@ for i in range(0, len(hub_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             hub_sheet = hub_sheet+ """
             Spinner:
                 text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -274,8 +315,8 @@ for i in range(0, len(hub_excel.index)):
             Button:
                 text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -287,8 +328,13 @@ for i in range(0, len(hub_excel.index)):
             CheckBox:
                 text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -303,6 +349,8 @@ for i in range(0, len(hub_excel.index)):
             hub_sheet = hub_sheet+ """
             TextInput:
                 text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -314,14 +362,23 @@ for i in range(len(hub_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             hub_sheet = hub_sheet+ """
             Spinner:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -334,8 +391,8 @@ for i in range(len(hub_excel.index), 30):
             Button:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -347,8 +404,13 @@ for i in range(len(hub_excel.index), 30):
             CheckBox:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -359,6 +421,8 @@ for i in range(len(hub_excel.index), 30):
             hub_sheet = hub_sheet+ """
             TextInput:
                 text: ''
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -390,14 +454,23 @@ for i in range(0,len(lanCard_excel.index)):
         BoxLayout:
 """
     for j in range(0,9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             lanCard_sheet = lanCard_sheet+ """
             Spinner:
                 text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -410,8 +483,8 @@ for i in range(0,len(lanCard_excel.index)):
             Button:
                 text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -423,8 +496,13 @@ for i in range(0,len(lanCard_excel.index)):
             CheckBox:
                 text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -439,6 +517,8 @@ for i in range(0,len(lanCard_excel.index)):
             lanCard_sheet = lanCard_sheet+ """
             TextInput:
                 text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -451,14 +531,23 @@ for i in range(len(lanCard_excel.index), 30):
         BoxLayout:
 """
     for j in range(0,9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             lanCard_sheet = lanCard_sheet+ """
             Spinner:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -471,8 +560,8 @@ for i in range(len(lanCard_excel.index), 30):
             Button:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -484,8 +573,13 @@ for i in range(len(lanCard_excel.index), 30):
             CheckBox:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -496,6 +590,8 @@ for i in range(len(lanCard_excel.index), 30):
             lanCard_sheet = lanCard_sheet+ """
             TextInput:
                 text: ''
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -527,14 +623,23 @@ for i in range(0, len(kNm_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             kNm_sheet = kNm_sheet+ """
             Spinner:
                 text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -547,8 +652,8 @@ for i in range(0, len(kNm_excel.index)):
             Button:
                 text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -560,8 +665,13 @@ for i in range(0, len(kNm_excel.index)):
             CheckBox:
                 text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -576,6 +686,8 @@ for i in range(0, len(kNm_excel.index)):
             kNm_sheet = kNm_sheet+ """
             TextInput:
                 text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -587,14 +699,23 @@ for i in range(len(kNm_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             kNm_sheet = kNm_sheet+ """
             Spinner:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -607,8 +728,8 @@ for i in range(len(kNm_excel.index), 30):
             Button:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -620,8 +741,13 @@ for i in range(len(kNm_excel.index), 30):
             CheckBox:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -632,6 +758,8 @@ for i in range(len(kNm_excel.index), 30):
             kNm_sheet = kNm_sheet+ """
             TextInput:
                 text: ''
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -663,14 +791,23 @@ for i in range(0, len(miniPC_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             miniPC_sheet = miniPC_sheet+ """
             Spinner:
                 text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -683,8 +820,8 @@ for i in range(0, len(miniPC_excel.index)):
             Button:
                 text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -696,8 +833,13 @@ for i in range(0, len(miniPC_excel.index)):
             CheckBox:
                 text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -712,6 +854,8 @@ for i in range(0, len(miniPC_excel.index)):
             miniPC_sheet = miniPC_sheet+ """
             TextInput:
                 text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -723,14 +867,23 @@ for i in range(len(miniPC_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             miniPC_sheet = miniPC_sheet+ """
             Spinner:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -743,8 +896,8 @@ for i in range(len(miniPC_excel.index), 30):
             Button:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -756,8 +909,13 @@ for i in range(len(miniPC_excel.index), 30):
             CheckBox:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -768,6 +926,8 @@ for i in range(len(miniPC_excel.index), 30):
             miniPC_sheet = miniPC_sheet+ """
             TextInput:
                 text: ''
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -797,18 +957,25 @@ camera_sheet = ""
 for i in range(0, len(camera_excel.index)):
     camera_sheet = camera_sheet + """
         BoxLayout:
-            background_color: (0, 0, 0, 1)
-            foreground_color: (0, 0, 0, 1)
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             camera_sheet = camera_sheet+ """
             Spinner:
                 text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -821,8 +988,8 @@ for i in range(0, len(camera_excel.index)):
             Button:
                 text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -834,7 +1001,13 @@ for i in range(0, len(camera_excel.index)):
             CheckBox:
                 text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -849,6 +1022,8 @@ for i in range(0, len(camera_excel.index)):
             camera_sheet = camera_sheet + """
             TextInput:
                 text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -860,14 +1035,23 @@ for i in range(len(camera_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             camera_sheet = camera_sheet+ """
             Spinner:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -880,8 +1064,8 @@ for i in range(len(camera_excel.index), 30):
             Button:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -893,8 +1077,13 @@ for i in range(len(camera_excel.index), 30):
             CheckBox:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -905,6 +1094,8 @@ for i in range(len(camera_excel.index), 30):
             camera_sheet = camera_sheet + """
             TextInput:
                 text: ''
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -936,14 +1127,23 @@ for i in range(0, len(etc_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             etc_sheet = etc_sheet+ """
             Spinner:
                 text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -956,8 +1156,8 @@ for i in range(0, len(etc_excel.index)):
             Button:
                 text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -969,8 +1169,13 @@ for i in range(0, len(etc_excel.index)):
             CheckBox:
                 text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -985,6 +1190,8 @@ for i in range(0, len(etc_excel.index)):
             etc_sheet = etc_sheet + """
             TextInput:
                 text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -996,14 +1203,23 @@ for i in range(len(etc_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
+        background_rgba = ""
+        if i%2==0:
+            button_rgba = light_gray[0]
+            Check_rgba = light_gray[1]
+            inputText_rgba = light_gray[2]
+        else:
+            button_rgba = dark_gray[0]
+            Check_rgba = dark_gray[1]
+            inputText_rgba = dark_gray[2]
 
         if j in [4,7]: 
             etc_sheet = etc_sheet+ """
             Spinner:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -1016,8 +1232,8 @@ for i in range(len(etc_excel.index), 30):
             Button:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                background_color: (""" + button_rgba + """)
+                color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -1029,8 +1245,13 @@ for i in range(len(etc_excel.index), 30):
             CheckBox:
                 text: ''
                 size_hint: (0.1, 1)
-                background_color: (1, 1, 1, 1)
-                foreground_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: """ + Check_rgba + """
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                color: """ + check_white + """
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -1041,6 +1262,8 @@ for i in range(len(etc_excel.index), 30):
             etc_sheet = etc_sheet + """
             TextInput:
                 text: ''
+                background_color: (""" + inputText_rgba + """)
+                color: 0, 0, 0, 1
                 size_hint: (0.1, 1)
                 halign: 'center'
                 walign: 'center'
@@ -1129,20 +1352,26 @@ class MonitorScreen(Screen):
 
     def get_dateNow(self, btnId):
 
-        now_date = datetime.now()
-        now_year = str(now_date.year%100)
-        if now_date.month < 10:
-            now_month = '0' + str(now_date.month)
+        if self.ids[btnId].text == '':
+            now_date = datetime.now()
+            now_year = str(now_date.year%100)
+            if now_date.month < 10:
+                now_month = '0' + str(now_date.month)
+            else:
+                now_month = str(now_date.month)
+            if now_date.day < 10:
+                now_day = '0' + str(now_date.day)
+            else:
+                now_day = str(now_date.day)
+            self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
         else:
-            now_month = str(now_date.month)
-        if now_date.day < 10:
-            now_day = '0' + str(now_date.day)
-        else:
-            now_day = str(now_date.day)
-        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+            self.ids[btnId].text = ''
 
     def on_check(self, instance, value, chId):
-        self.ids[chId].text = str(value)
+        if value:
+            self.ids[chId].text = ''
+        else:
+            self.ids[chId].text = str(value)
 
 class HubScreen(Screen):
     def save_file(self):
@@ -1181,20 +1410,26 @@ class HubScreen(Screen):
 
     def get_dateNow(self, btnId):
 
-        now_date = datetime.now()
-        now_year = str(now_date.year%100)
-        if now_date.month < 10:
-            now_month = '0' + str(now_date.month)
+        if self.ids[btnId].text == '':
+            now_date = datetime.now()
+            now_year = str(now_date.year%100)
+            if now_date.month < 10:
+                now_month = '0' + str(now_date.month)
+            else:
+                now_month = str(now_date.month)
+            if now_date.day < 10:
+                now_day = '0' + str(now_date.day)
+            else:
+                now_day = str(now_date.day)
+            self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
         else:
-            now_month = str(now_date.month)
-        if now_date.day < 10:
-            now_day = '0' + str(now_date.day)
-        else:
-            now_day = str(now_date.day)
-        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+            self.ids[btnId].text = ''
 
     def on_check(self, instance, value, chId):
-        self.ids[chId].text = str(value)
+        if value:
+            self.ids[chId].text = ''
+        else:
+            self.ids[chId].text = str(value)
 
 class LanCardScreen(Screen):
     def save_file(self):
@@ -1233,20 +1468,26 @@ class LanCardScreen(Screen):
 
     def get_dateNow(self, btnId):
 
-        now_date = datetime.now()
-        now_year = str(now_date.year%100)
-        if now_date.month < 10:
-            now_month = '0' + str(now_date.month)
+        if self.ids[btnId].text == '':
+            now_date = datetime.now()
+            now_year = str(now_date.year%100)
+            if now_date.month < 10:
+                now_month = '0' + str(now_date.month)
+            else:
+                now_month = str(now_date.month)
+            if now_date.day < 10:
+                now_day = '0' + str(now_date.day)
+            else:
+                now_day = str(now_date.day)
+            self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
         else:
-            now_month = str(now_date.month)
-        if now_date.day < 10:
-            now_day = '0' + str(now_date.day)
-        else:
-            now_day = str(now_date.day)
-        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+            self.ids[btnId].text = ''
 
     def on_check(self, instance, value, chId):
-        self.ids[chId].text = str(value)
+        if value:
+            self.ids[chId].text = ''
+        else:
+            self.ids[chId].text = str(value)
 
 class KnMScreen(Screen):
     def save_file(self):
@@ -1285,20 +1526,26 @@ class KnMScreen(Screen):
 
     def get_dateNow(self, btnId):
 
-        now_date = datetime.now()
-        now_year = str(now_date.year%100)
-        if now_date.month < 10:
-            now_month = '0' + str(now_date.month)
+        if self.ids[btnId].text == '':
+            now_date = datetime.now()
+            now_year = str(now_date.year%100)
+            if now_date.month < 10:
+                now_month = '0' + str(now_date.month)
+            else:
+                now_month = str(now_date.month)
+            if now_date.day < 10:
+                now_day = '0' + str(now_date.day)
+            else:
+                now_day = str(now_date.day)
+            self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
         else:
-            now_month = str(now_date.month)
-        if now_date.day < 10:
-            now_day = '0' + str(now_date.day)
-        else:
-            now_day = str(now_date.day)
-        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+            self.ids[btnId].text = ''
 
     def on_check(self, instance, value, chId):
-        self.ids[chId].text = str(value)
+        if value:
+            self.ids[chId].text = ''
+        else:
+            self.ids[chId].text = str(value)
 
 class MiniPCScreen(Screen):
     def save_file(self):
@@ -1337,20 +1584,26 @@ class MiniPCScreen(Screen):
 
     def get_dateNow(self, btnId):
 
-        now_date = datetime.now()
-        now_year = str(now_date.year%100)
-        if now_date.month < 10:
-            now_month = '0' + str(now_date.month)
+        if self.ids[btnId].text == '':
+            now_date = datetime.now()
+            now_year = str(now_date.year%100)
+            if now_date.month < 10:
+                now_month = '0' + str(now_date.month)
+            else:
+                now_month = str(now_date.month)
+            if now_date.day < 10:
+                now_day = '0' + str(now_date.day)
+            else:
+                now_day = str(now_date.day)
+            self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
         else:
-            now_month = str(now_date.month)
-        if now_date.day < 10:
-            now_day = '0' + str(now_date.day)
-        else:
-            now_day = str(now_date.day)
-        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+            self.ids[btnId].text = ''
 
     def on_check(self, instance, value, chId):
-        self.ids[chId].text = str(value)
+        if value:
+            self.ids[chId].text = ''
+        else:
+            self.ids[chId].text = str(value)
 
 class CameraScreen(Screen):
     def save_file(self):
@@ -1390,20 +1643,26 @@ class CameraScreen(Screen):
 
     def get_dateNow(self, btnId):
 
-        now_date = datetime.now()
-        now_year = str(now_date.year%100)
-        if now_date.month < 10:
-            now_month = '0' + str(now_date.month)
+        if self.ids[btnId].text == '':
+            now_date = datetime.now()
+            now_year = str(now_date.year%100)
+            if now_date.month < 10:
+                now_month = '0' + str(now_date.month)
+            else:
+                now_month = str(now_date.month)
+            if now_date.day < 10:
+                now_day = '0' + str(now_date.day)
+            else:
+                now_day = str(now_date.day)
+            self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
         else:
-            now_month = str(now_date.month)
-        if now_date.day < 10:
-            now_day = '0' + str(now_date.day)
-        else:
-            now_day = str(now_date.day)
-        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+            self.ids[btnId].text = ''
 
     def on_check(self, instance, value, chId):
-        self.ids[chId].text = str(value)
+        if value:
+            self.ids[chId].text = ''
+        else:
+            self.ids[chId].text = str(value)
         
 class EtcScreen(Screen):
     def save_file(self):
@@ -1442,20 +1701,26 @@ class EtcScreen(Screen):
 
     def get_dateNow(self, btnId):
 
-        now_date = datetime.now()
-        now_year = str(now_date.year%100)
-        if now_date.month < 10:
-            now_month = '0' + str(now_date.month)
+        if self.ids[btnId].text == '':
+            now_date = datetime.now()
+            now_year = str(now_date.year%100)
+            if now_date.month < 10:
+                now_month = '0' + str(now_date.month)
+            else:
+                now_month = str(now_date.month)
+            if now_date.day < 10:
+                now_day = '0' + str(now_date.day)
+            else:
+                now_day = str(now_date.day)
+            self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
         else:
-            now_month = str(now_date.month)
-        if now_date.day < 10:
-            now_day = '0' + str(now_date.day)
-        else:
-            now_day = str(now_date.day)
-        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+            self.ids[btnId].text = ''
 
     def on_check(self, instance, value, chId):
-        self.ids[chId].text = str(value)
+        if value:
+            self.ids[chId].text = ''
+        else:
+            self.ids[chId].text = str(value)
         
 class CCG(App):
     def build(self):
