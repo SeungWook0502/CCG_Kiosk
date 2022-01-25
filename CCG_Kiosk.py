@@ -10,6 +10,7 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.textinput import TextInput
 import pandas as pd
 import openpyxl
+from datetime import datetime
 
 Title = [['Monitor','monitor','<MonitorScreen>:'],['Hub','hub','<HubScreen>:'],['Lan Card','lanCard','<LanCardScreen>:'],['Keyborad&Mouse','kNm','<KnMScreen>:'],['Mini PC','miniPC','<MiniPCScreen>:'],['Camera','camera','<CameraScreen>:'],['ETC','etc','<ETCScreen>:']]
 excel_path = './list.xlsx'
@@ -110,8 +111,55 @@ for i in range(0,len(monitor_excel.index)):
             name: 'content_bl'
             background_color: (1, 1, 1, 1)
 """
-    for j in range(0,9):
-        monitor_sheet = monitor_sheet+ """
+    for j in range(0, 9):
+
+        if j in [4,7]: 
+            monitor_sheet = monitor_sheet+ """
+            Spinner:
+                text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: monitor_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            monitor_sheet = monitor_sheet + """
+            Button:
+                text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: monitor_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('monitor_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            monitor_sheet = monitor_sheet + """
+            CheckBox:
+                text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: monitor_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'monitor_cell""" + str(i) + str(j) + """')
+"""
+            if not(str(monitor_excel.iloc[i,j]).replace("nan","") in ['False','']):
+                monitor_sheet = monitor_sheet + """
+                active: 'down'
+"""
+
+        else:
+            monitor_sheet = monitor_sheet+ """
             TextInput:
                 text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
@@ -121,6 +169,7 @@ for i in range(0,len(monitor_excel.index)):
                 id: monitor_cell""" + str(i) + str(j) + """
                 
 """
+
 for i in range(len(monitor_excel.index), 30):
     monitor_sheet = monitor_sheet + """
         BoxLayout:
@@ -128,7 +177,48 @@ for i in range(len(monitor_excel.index), 30):
             background_color: (1, 1, 1, 1)
 """
     for j in range(0,9):
-        monitor_sheet = monitor_sheet+ """
+        if j in [4, 7]:
+            monitor_sheet = monitor_sheet+ """
+            Spinner:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: monitor_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            monitor_sheet = monitor_sheet + """
+            Button:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: monitor_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('monitor_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            monitor_sheet = monitor_sheet + """
+            CheckBox:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: monitor_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'monitor_cell""" + str(i) + str(j) + """')
+"""
+        else:
+            monitor_sheet = monitor_sheet+ """
             TextInput:
                 text: ''
                 size_hint: (0.1, 1)
@@ -164,7 +254,53 @@ for i in range(0, len(hub_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
-        hub_sheet = hub_sheet+ """
+
+        if j in [4,7]: 
+            hub_sheet = hub_sheet+ """
+            Spinner:
+                text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: hub_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            hub_sheet = hub_sheet + """
+            Button:
+                text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: hub_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('hub_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            hub_sheet = hub_sheet + """
+            CheckBox:
+                text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: hub_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'hub_cell""" + str(i) + str(j) + """')
+"""
+            if not(str(hub_excel.iloc[i,j]).replace("nan","") in ['False','']):
+                hub_sheet = hub_sheet + """
+                active: 'down'
+"""
+        else:
+            hub_sheet = hub_sheet+ """
             TextInput:
                 text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
@@ -178,7 +314,49 @@ for i in range(len(hub_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
-        hub_sheet = hub_sheet+ """
+
+        if j in [4,7]: 
+            hub_sheet = hub_sheet+ """
+            Spinner:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: hub_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            hub_sheet = hub_sheet + """
+            Button:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: hub_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('hub_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            hub_sheet = hub_sheet + """
+            CheckBox:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: hub_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'hub_cell""" + str(i) + str(j) + """')
+"""
+        else:
+            hub_sheet = hub_sheet+ """
             TextInput:
                 text: ''
                 size_hint: (0.1, 1)
@@ -212,7 +390,53 @@ for i in range(0,len(lanCard_excel.index)):
         BoxLayout:
 """
     for j in range(0,9):
-        lanCard_sheet = lanCard_sheet+ """
+
+        if j in [4,7]: 
+            lanCard_sheet = lanCard_sheet+ """
+            Spinner:
+                text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: lanCard_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            lanCard_sheet = lanCard_sheet + """
+            Button:
+                text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: lanCard_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('lanCard_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            lanCard_sheet = lanCard_sheet + """
+            CheckBox:
+                text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: lanCard_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'lanCard_cell""" + str(i) + str(j) + """')
+"""
+            if not(str(lanCard_excel.iloc[i,j]).replace("nan","") in ['False','']):
+                lanCard_sheet = lanCard_sheet + """
+                active: 'down'
+"""
+        else:
+            lanCard_sheet = lanCard_sheet+ """
             TextInput:
                 text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
@@ -227,7 +451,49 @@ for i in range(len(lanCard_excel.index), 30):
         BoxLayout:
 """
     for j in range(0,9):
-        lanCard_sheet = lanCard_sheet+ """
+
+        if j in [4,7]: 
+            lanCard_sheet = lanCard_sheet+ """
+            Spinner:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: lanCard_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            lanCard_sheet = lanCard_sheet + """
+            Button:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: lanCard_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('lanCard_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            lanCard_sheet = lanCard_sheet + """
+            CheckBox:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: lanCard_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'lanCard_cell""" + str(i) + str(j) + """')
+"""
+        else:
+            lanCard_sheet = lanCard_sheet+ """
             TextInput:
                 text: ''
                 size_hint: (0.1, 1)
@@ -261,7 +527,53 @@ for i in range(0, len(kNm_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
-        kNm_sheet = kNm_sheet+ """
+
+        if j in [4,7]: 
+            kNm_sheet = kNm_sheet+ """
+            Spinner:
+                text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: kNm_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            kNm_sheet = kNm_sheet + """
+            Button:
+                text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: kNm_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('kNm_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            kNm_sheet = kNm_sheet + """
+            CheckBox:
+                text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: kNm_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'kNm_cell""" + str(i) + str(j) + """')
+"""
+            if not(str(kNm_excel.iloc[i,j]).replace("nan","") in ['False','']):
+                kNm_sheet = kNm_sheet + """
+                active: 'down'
+"""
+        else:
+            kNm_sheet = kNm_sheet+ """
             TextInput:
                 text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
@@ -275,7 +587,49 @@ for i in range(len(kNm_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
-        kNm_sheet = kNm_sheet+ """
+
+        if j in [4,7]: 
+            kNm_sheet = kNm_sheet+ """
+            Spinner:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: kNm_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            kNm_sheet = kNm_sheet + """
+            Button:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: kNm_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('kNm_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            kNm_sheet = kNm_sheet + """
+            CheckBox:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: kNm_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'kNm_cell""" + str(i) + str(j) + """')
+"""
+        else:
+            kNm_sheet = kNm_sheet+ """
             TextInput:
                 text: ''
                 size_hint: (0.1, 1)
@@ -309,7 +663,53 @@ for i in range(0, len(miniPC_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
-        miniPC_sheet = miniPC_sheet+ """
+
+        if j in [4,7]: 
+            miniPC_sheet = miniPC_sheet+ """
+            Spinner:
+                text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: miniPC_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            miniPC_sheet = miniPC_sheet + """
+            Button:
+                text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: miniPC_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('miniPC_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            miniPC_sheet = miniPC_sheet + """
+            CheckBox:
+                text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: miniPC_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'miniPC_cell""" + str(i) + str(j) + """')
+"""
+            if not(str(miniPC_excel.iloc[i,j]).replace("nan","") in ['False','']):
+                miniPC_sheet = miniPC_sheet + """
+                active: 'down'
+"""
+        else:
+            miniPC_sheet = miniPC_sheet+ """
             TextInput:
                 text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
@@ -323,7 +723,49 @@ for i in range(len(miniPC_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
-        miniPC_sheet = miniPC_sheet+ """
+
+        if j in [4,7]: 
+            miniPC_sheet = miniPC_sheet+ """
+            Spinner:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: miniPC_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            miniPC_sheet = miniPC_sheet + """
+            Button:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: miniPC_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('miniPC_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            miniPC_sheet = miniPC_sheet + """
+            CheckBox:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: miniPC_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'miniPC_cell""" + str(i) + str(j) + """')
+"""
+        else:
+            miniPC_sheet = miniPC_sheet+ """
             TextInput:
                 text: ''
                 size_hint: (0.1, 1)
@@ -355,9 +797,56 @@ camera_sheet = ""
 for i in range(0, len(camera_excel.index)):
     camera_sheet = camera_sheet + """
         BoxLayout:
+            background_color: (0, 0, 0, 1)
+            foreground_color: (0, 0, 0, 1)
 """
     for j in range(0, 9):
-        camera_sheet = camera_sheet + """
+
+        if j in [4,7]: 
+            camera_sheet = camera_sheet+ """
+            Spinner:
+                text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: camera_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            camera_sheet = camera_sheet + """
+            Button:
+                text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: camera_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('camera_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            camera_sheet = camera_sheet + """
+            CheckBox:
+                text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: camera_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'camera_cell""" + str(i) + str(j) + """')
+"""
+            if not(str(camera_excel.iloc[i,j]).replace("nan","") in ['False','']):
+                camera_sheet = camera_sheet + """
+                active: 'down'
+"""
+        else:
+            camera_sheet = camera_sheet + """
             TextInput:
                 text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
@@ -371,7 +860,49 @@ for i in range(len(camera_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
-        camera_sheet = camera_sheet + """
+
+        if j in [4,7]: 
+            camera_sheet = camera_sheet+ """
+            Spinner:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: camera_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            camera_sheet = camera_sheet + """
+            Button:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: camera_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('camera_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            camera_sheet = camera_sheet + """
+            CheckBox:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: camera_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'camera_cell""" + str(i) + str(j) + """')
+"""
+        else:
+            camera_sheet = camera_sheet + """
             TextInput:
                 text: ''
                 size_hint: (0.1, 1)
@@ -405,7 +936,53 @@ for i in range(0, len(etc_excel.index)):
         BoxLayout:
 """
     for j in range(0, 9):
-        etc_sheet = etc_sheet + """
+
+        if j in [4,7]: 
+            etc_sheet = etc_sheet+ """
+            Spinner:
+                text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: etc_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            etc_sheet = etc_sheet + """
+            Button:
+                text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: etc_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('etc_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            etc_sheet = etc_sheet + """
+            CheckBox:
+                text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: etc_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'etc_cell""" + str(i) + str(j) + """')
+"""
+            if not(str(etc_excel.iloc[i,j]).replace("nan","") in ['False','']):
+                etc_sheet = etc_sheet + """
+                active: 'down'
+"""
+        else:
+            etc_sheet = etc_sheet + """
             TextInput:
                 text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
                 size_hint: (0.1, 1)
@@ -419,7 +996,49 @@ for i in range(len(etc_excel.index), 30):
         BoxLayout:
 """
     for j in range(0, 9):
-        etc_sheet = etc_sheet + """
+
+        if j in [4,7]: 
+            etc_sheet = etc_sheet+ """
+            Spinner:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: etc_cell""" + str(i) + str(j) + """
+                values: ["이현기","노종구","강복구","최락현","바산트 라구","하호건","이종철","이승준","윤재성","구경모","김진수","박장훈",""]
+                
+"""
+        elif j in [5, 8]:
+            etc_sheet = etc_sheet + """
+            Button:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: etc_cell""" + str(i) + str(j) + """
+                on_press: root.get_dateNow('etc_cell""" + str(i) + str(j) + """')
+"""
+        elif j == 3:
+            etc_sheet = etc_sheet + """
+            CheckBox:
+                text: ''
+                size_hint: (0.1, 1)
+                background_color: (1, 1, 1, 1)
+                foreground_color: (1, 1, 1, 1)
+                font_name: '""" + fontName + """'
+                halign: 'center'
+                walign: 'center'
+                id: etc_cell""" + str(i) + str(j) + """
+                on_active: root.on_check(self, self.active, 'etc_cell""" + str(i) + str(j) + """')
+"""
+        else:
+            etc_sheet = etc_sheet + """
             TextInput:
                 text: ''
                 size_hint: (0.1, 1)
@@ -455,7 +1074,6 @@ KnM     = Title[3][2]+Screen_top+str(len(kNm_excel)+        3+(30-len(kNm_excel.
 miniPC  = Title[4][2]+Screen_top+str(len(miniPC_excel)+     3+(30-len(miniPC_excel.index)))+    Screen_back+Title[4][0]+Screen_save
 camera  = Title[5][2]+Screen_top+str(len(camera_excel)+     3+(30-len(camera_excel.index)))+    Screen_back+Title[5][0]+Screen_save
 etc     = Title[6][2]+Screen_top+str(len(etc_excel)+        3+(30-len(etc_excel.index)))+       Screen_back+Title[6][0]+Screen_save
-
 
 Builder.load_string(
                     Main+       Main_Button+        Screen_bottom+
@@ -509,6 +1127,23 @@ class MonitorScreen(Screen):
 
         monitor_excel = pd.read_excel(excel_path, sheet_name = Title[0][1], index_col=None)
 
+    def get_dateNow(self, btnId):
+
+        now_date = datetime.now()
+        now_year = str(now_date.year%100)
+        if now_date.month < 10:
+            now_month = '0' + str(now_date.month)
+        else:
+            now_month = str(now_date.month)
+        if now_date.day < 10:
+            now_day = '0' + str(now_date.day)
+        else:
+            now_day = str(now_date.day)
+        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+
+    def on_check(self, instance, value, chId):
+        self.ids[chId].text = str(value)
+
 class HubScreen(Screen):
     def save_file(self):
 
@@ -544,6 +1179,22 @@ class HubScreen(Screen):
 
         hub_excel = pd.read_excel(excel_path, sheet_name = Title[1][1], index_col=None)
 
+    def get_dateNow(self, btnId):
+
+        now_date = datetime.now()
+        now_year = str(now_date.year%100)
+        if now_date.month < 10:
+            now_month = '0' + str(now_date.month)
+        else:
+            now_month = str(now_date.month)
+        if now_date.day < 10:
+            now_day = '0' + str(now_date.day)
+        else:
+            now_day = str(now_date.day)
+        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+
+    def on_check(self, instance, value, chId):
+        self.ids[chId].text = str(value)
 
 class LanCardScreen(Screen):
     def save_file(self):
@@ -580,6 +1231,23 @@ class LanCardScreen(Screen):
 
         lanCard_excel = pd.read_excel(excel_path, sheet_name = Title[2][1], index_col=None)
 
+    def get_dateNow(self, btnId):
+
+        now_date = datetime.now()
+        now_year = str(now_date.year%100)
+        if now_date.month < 10:
+            now_month = '0' + str(now_date.month)
+        else:
+            now_month = str(now_date.month)
+        if now_date.day < 10:
+            now_day = '0' + str(now_date.day)
+        else:
+            now_day = str(now_date.day)
+        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+
+    def on_check(self, instance, value, chId):
+        self.ids[chId].text = str(value)
+
 class KnMScreen(Screen):
     def save_file(self):
 
@@ -615,6 +1283,23 @@ class KnMScreen(Screen):
 
         kNm_excel = pd.read_excel(excel_path, sheet_name = Title[3][1], index_col=None)
 
+    def get_dateNow(self, btnId):
+
+        now_date = datetime.now()
+        now_year = str(now_date.year%100)
+        if now_date.month < 10:
+            now_month = '0' + str(now_date.month)
+        else:
+            now_month = str(now_date.month)
+        if now_date.day < 10:
+            now_day = '0' + str(now_date.day)
+        else:
+            now_day = str(now_date.day)
+        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+
+    def on_check(self, instance, value, chId):
+        self.ids[chId].text = str(value)
+
 class MiniPCScreen(Screen):
     def save_file(self):
 
@@ -649,6 +1334,23 @@ class MiniPCScreen(Screen):
         save.save()
 
         miniPC_excel = pd.read_excel(excel_path, sheet_name = Title[4][1], index_col=None)
+
+    def get_dateNow(self, btnId):
+
+        now_date = datetime.now()
+        now_year = str(now_date.year%100)
+        if now_date.month < 10:
+            now_month = '0' + str(now_date.month)
+        else:
+            now_month = str(now_date.month)
+        if now_date.day < 10:
+            now_day = '0' + str(now_date.day)
+        else:
+            now_day = str(now_date.day)
+        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+
+    def on_check(self, instance, value, chId):
+        self.ids[chId].text = str(value)
 
 class CameraScreen(Screen):
     def save_file(self):
@@ -686,6 +1388,23 @@ class CameraScreen(Screen):
         
         camera_excel = pd.read_excel(excel_path, sheet_name = Title[5][1], index_col=None)
 
+    def get_dateNow(self, btnId):
+
+        now_date = datetime.now()
+        now_year = str(now_date.year%100)
+        if now_date.month < 10:
+            now_month = '0' + str(now_date.month)
+        else:
+            now_month = str(now_date.month)
+        if now_date.day < 10:
+            now_day = '0' + str(now_date.day)
+        else:
+            now_day = str(now_date.day)
+        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+
+    def on_check(self, instance, value, chId):
+        self.ids[chId].text = str(value)
+        
 class EtcScreen(Screen):
     def save_file(self):
 
@@ -721,6 +1440,23 @@ class EtcScreen(Screen):
 
         etc_excel = pd.read_excel(excel_path, sheet_name = Title[6][1], index_col=None)
 
+    def get_dateNow(self, btnId):
+
+        now_date = datetime.now()
+        now_year = str(now_date.year%100)
+        if now_date.month < 10:
+            now_month = '0' + str(now_date.month)
+        else:
+            now_month = str(now_date.month)
+        if now_date.day < 10:
+            now_day = '0' + str(now_date.day)
+        else:
+            now_day = str(now_date.day)
+        self.ids[btnId].text = now_year + '.' + now_month + '.' + now_day
+
+    def on_check(self, instance, value, chId):
+        self.ids[chId].text = str(value)
+        
 class CCG(App):
     def build(self):
 
