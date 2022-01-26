@@ -42,11 +42,12 @@ Main = """
         BoxLayout:
             background_color: (1, 1, 1, 1)
             Image:
-                source: './CCG_logo.png'
+                source: './CCG_logo_nonBackground_top.png'
 """
-Main_Button = ""
+
+Main_content = ""
 for title in Title:
-    Main_Button = Main_Button + """
+    Main_content = Main_content + """
         BoxLayout:
             padding_x: (20, 20)
             Button:
@@ -54,6 +55,14 @@ for title in Title:
                 on_press: 
                     root.manager.current = '""" + title[1] + """'
                     root.manager.transition.direction = 'left'
+"""
+
+Main_bottom = """
+            
+        BoxLayout:
+            Image:
+                source: './CCG_logo_nonBackground_bot.png'
+
 """
 
 #####################################################################
@@ -162,7 +171,7 @@ for i in range(0,len(monitor_excel.index)):
                         size: self.size
                 color: """ + check_white + """
                 text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -175,10 +184,16 @@ for i in range(0,len(monitor_excel.index)):
 """
 
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             monitor_sheet = monitor_sheet+ """
             TextInput:
                 text: '""" + str(monitor_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
                 font_name: '""" + fontName + """'
@@ -240,7 +255,7 @@ for i in range(len(monitor_excel.index), 30):
                         size: self.size
                 color: """ + check_white + """
                 text: ''
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -248,12 +263,18 @@ for i in range(len(monitor_excel.index), 30):
                 on_active: root.on_check(self, self.active, 'monitor_cell""" + str(i) + str(j) + """')
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             monitor_sheet = monitor_sheet+ """
             TextInput:
                 text: ''
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 font_name: '""" + fontName + """'
                 halign: 'center'
                 walign: 'center'
@@ -262,11 +283,21 @@ for i in range(len(monitor_excel.index), 30):
 """
 
 monitor_subTitle = ""
+sub_i = 0
 for sub_title in monitor_excel.columns:
+    if sub_i == 1:
+        w = '0.07'
+    elif sub_i == 2:
+        w = '0.18'
+    elif sub_i == 3:
+        w = '0.05'
+    else:
+        w = '0.1'
+    sub_i = sub_i + 1
     monitor_subTitle = monitor_subTitle + """
             TextInput:
                 text: '""" + sub_title + """'
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 disabled_foreground_color: (0, 0, 0, 1)
                 background_color: (0, 0, 0, 1)
                 foreground_color: (1, 1, 1, 1)
@@ -327,7 +358,7 @@ for i in range(0, len(hub_excel.index)):
             hub_sheet = hub_sheet + """
             CheckBox:
                 text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -346,12 +377,18 @@ for i in range(0, len(hub_excel.index)):
                 active: 'down'
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             hub_sheet = hub_sheet+ """
             TextInput:
                 text: '""" + str(hub_excel.iloc[i,j]).replace("nan","") + """'
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -403,7 +440,7 @@ for i in range(len(hub_excel.index), 30):
             hub_sheet = hub_sheet + """
             CheckBox:
                 text: ''
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -418,12 +455,18 @@ for i in range(len(hub_excel.index), 30):
                 on_active: root.on_check(self, self.active, 'hub_cell""" + str(i) + str(j) + """')
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             hub_sheet = hub_sheet+ """
             TextInput:
                 text: ''
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -431,11 +474,21 @@ for i in range(len(hub_excel.index), 30):
 """
 
 hub_subTitle = ""
+sub_i = 0
 for sub_title in hub_excel.columns:
+    if sub_i == 1:
+        w = '0.07'
+    elif sub_i == 2:
+        w = '0.18'
+    elif sub_i == 3:
+        w = '0.05'
+    else:
+        w = '0.1'
+    sub_i = sub_i + 1
     hub_subTitle = hub_subTitle + """
             TextInput:
                 text: '""" + sub_title + """'
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 disabled_foreground_color: (0, 0, 0, 1)
                 background_color: (0, 0, 0, 1)
                 foreground_color: (1, 1, 1, 1)
@@ -495,7 +548,7 @@ for i in range(0,len(lanCard_excel.index)):
             lanCard_sheet = lanCard_sheet + """
             CheckBox:
                 text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -514,12 +567,18 @@ for i in range(0,len(lanCard_excel.index)):
                 active: 'down'
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             lanCard_sheet = lanCard_sheet+ """
             TextInput:
                 text: '""" + str(lanCard_excel.iloc[i,j]).replace("nan","") + """'
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -572,7 +631,7 @@ for i in range(len(lanCard_excel.index), 30):
             lanCard_sheet = lanCard_sheet + """
             CheckBox:
                 text: ''
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -587,12 +646,18 @@ for i in range(len(lanCard_excel.index), 30):
                 on_active: root.on_check(self, self.active, 'lanCard_cell""" + str(i) + str(j) + """')
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             lanCard_sheet = lanCard_sheet+ """
             TextInput:
                 text: ''
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -600,11 +665,21 @@ for i in range(len(lanCard_excel.index), 30):
 """
 
 lanCard_subTitle = ""
+sub_i = 0
 for sub_title in lanCard_excel.columns:
+    if sub_i == 1:
+        w = '0.07'
+    elif sub_i == 2:
+        w = '0.18'
+    elif sub_i == 3:
+        w = '0.05'
+    else:
+        w = '0.1'
+    sub_i = sub_i + 1
     lanCard_subTitle = lanCard_subTitle + """
             TextInput:
                 text: '""" + sub_title + """'
-                size_hint: (0.1, 1)
+                size_hint: ("""  + w + """, 1)
                 disabled_foreground_color: (0, 0, 0, 1)
                 background_color: (0, 0, 0, 1)
                 foreground_color: (1, 1, 1, 1)
@@ -664,7 +739,7 @@ for i in range(0, len(kNm_excel.index)):
             kNm_sheet = kNm_sheet + """
             CheckBox:
                 text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -683,12 +758,18 @@ for i in range(0, len(kNm_excel.index)):
                 active: 'down'
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             kNm_sheet = kNm_sheet+ """
             TextInput:
                 text: '""" + str(kNm_excel.iloc[i,j]).replace("nan","") + """'
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -740,7 +821,7 @@ for i in range(len(kNm_excel.index), 30):
             kNm_sheet = kNm_sheet + """
             CheckBox:
                 text: ''
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -755,12 +836,18 @@ for i in range(len(kNm_excel.index), 30):
                 on_active: root.on_check(self, self.active, 'kNm_cell""" + str(i) + str(j) + """')
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             kNm_sheet = kNm_sheet+ """
             TextInput:
                 text: ''
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -768,11 +855,21 @@ for i in range(len(kNm_excel.index), 30):
 """
 
 kNm_subTitle = ""
+sub_i = 0
 for sub_title in kNm_excel.columns:
+    if sub_i == 1:
+        w = '0.07'
+    elif sub_i == 2:
+        w = '0.18'
+    elif sub_i == 3:
+        w = '0.05'
+    else:
+        w = '0.1'
+    sub_i = sub_i + 1
     kNm_subTitle = kNm_subTitle + """
             TextInput:
                 text: '""" + sub_title + """'
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 disabled_foreground_color: (0, 0, 0, 1)
                 background_color: (0, 0, 0, 1)
                 foreground_color: (1, 1, 1, 1)
@@ -832,7 +929,7 @@ for i in range(0, len(miniPC_excel.index)):
             miniPC_sheet = miniPC_sheet + """
             CheckBox:
                 text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -851,12 +948,18 @@ for i in range(0, len(miniPC_excel.index)):
                 active: 'down'
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             miniPC_sheet = miniPC_sheet+ """
             TextInput:
                 text: '""" + str(miniPC_excel.iloc[i,j]).replace("nan","") + """'
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -908,7 +1011,7 @@ for i in range(len(miniPC_excel.index), 30):
             miniPC_sheet = miniPC_sheet + """
             CheckBox:
                 text: ''
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -923,12 +1026,18 @@ for i in range(len(miniPC_excel.index), 30):
                 on_active: root.on_check(self, self.active, 'miniPC_cell""" + str(i) + str(j) + """')
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             miniPC_sheet = miniPC_sheet+ """
             TextInput:
                 text: ''
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -936,11 +1045,21 @@ for i in range(len(miniPC_excel.index), 30):
 """
 
 miniPC_subTitle = ""
+sub_i = 0
 for sub_title in miniPC_excel.columns:
+    if sub_i == 1:
+        w = '0.07'
+    elif sub_i == 2:
+        w = '0.18'
+    elif sub_i == 3:
+        w = '0.05'
+    else:
+        w = '0.1'
+    sub_i = sub_i + 1
     miniPC_subTitle = miniPC_subTitle + """
             TextInput:
                 text: '""" + sub_title + """'
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 disabled_foreground_color: (0, 0, 0, 1)
                 background_color: (0, 0, 0, 1)
                 foreground_color: (1, 1, 1, 1)
@@ -1000,7 +1119,7 @@ for i in range(0, len(camera_excel.index)):
             camera_sheet = camera_sheet + """
             CheckBox:
                 text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -1019,12 +1138,18 @@ for i in range(0, len(camera_excel.index)):
                 active: 'down'
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             camera_sheet = camera_sheet + """
             TextInput:
                 text: '""" + str(camera_excel.iloc[i,j]).replace("nan","") + """'
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -1076,7 +1201,7 @@ for i in range(len(camera_excel.index), 30):
             camera_sheet = camera_sheet + """
             CheckBox:
                 text: ''
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -1091,12 +1216,20 @@ for i in range(len(camera_excel.index), 30):
                 on_active: root.on_check(self, self.active, 'camera_cell""" + str(i) + str(j) + """')
 """
         else:
+            if j == 1:
+                w = '0.07'
+            elif j == 2:
+                w = '0.18'
+            elif j == 3:
+                w = '0.05'
+            else:
+                w = '0.1'
             camera_sheet = camera_sheet + """
             TextInput:
                 text: ''
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -1104,11 +1237,21 @@ for i in range(len(camera_excel.index), 30):
 """
 
 camera_subTitle = ""
+sub_i = 0
 for sub_title in camera_excel.columns:
+    if sub_i == 1:
+        w = '0.07'
+    elif sub_i == 2:
+        w = '0.18'
+    elif sub_i == 3:
+        w = '0.05'
+    else:
+        w = '0.1'
+    sub_i = sub_i + 1
     camera_subTitle = camera_subTitle + """
             TextInput:
                 text: '""" + sub_title + """'
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 disabled_foreground_color: (0, 0, 0, 1)
                 background_color: (0, 0, 0, 1)
                 foreground_color: (1, 1, 1, 1)
@@ -1168,7 +1311,7 @@ for i in range(0, len(etc_excel.index)):
             etc_sheet = etc_sheet + """
             CheckBox:
                 text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -1187,12 +1330,18 @@ for i in range(0, len(etc_excel.index)):
                 active: 'down'
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             etc_sheet = etc_sheet + """
             TextInput:
                 text: '""" + str(etc_excel.iloc[i,j]).replace("nan","") + """'
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -1244,7 +1393,7 @@ for i in range(len(etc_excel.index), 30):
             etc_sheet = etc_sheet + """
             CheckBox:
                 text: ''
-                size_hint: (0.1, 1)
+                size_hint: (0.05, 1)
                 canvas.before:
                     Color:
                         rgba: """ + Check_rgba + """
@@ -1259,12 +1408,18 @@ for i in range(len(etc_excel.index), 30):
                 on_active: root.on_check(self, self.active, 'etc_cell""" + str(i) + str(j) + """')
 """
         else:
+            if j == 2:
+                w = '0.18'
+            elif j == 1:
+                w = '0.07'
+            else:
+                w = '0.1'
             etc_sheet = etc_sheet + """
             TextInput:
                 text: ''
                 background_color: (""" + inputText_rgba + """)
                 color: 0, 0, 0, 1
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 halign: 'center'
                 walign: 'center'
                 font_name: '""" + fontName + """'
@@ -1272,11 +1427,21 @@ for i in range(len(etc_excel.index), 30):
 """
 
 etc_subTitle = ""
+sub_i = 0
 for sub_title in etc_excel.columns:
+    if sub_i == 1:
+        w = '0.07'
+    elif sub_i == 2:
+        w = '0.18'
+    elif sub_i == 3:
+        w = '0.05'
+    else:
+        w = '0.1'
+    sub_i = sub_i + 1
     etc_subTitle = etc_subTitle + """
             TextInput:
                 text: '""" + sub_title + """'
-                size_hint: (0.1, 1)
+                size_hint: (""" + w + """, 1)
                 disabled_foreground_color: (0, 0, 0, 1)
                 background_color: (0, 0, 0, 1)
                 foreground_color: (1, 1, 1, 1)
@@ -1299,7 +1464,7 @@ camera  = Title[5][2]+Screen_top+str(len(camera_excel)+     3+(30-len(camera_exc
 etc     = Title[6][2]+Screen_top+str(len(etc_excel)+        3+(30-len(etc_excel.index)))+       Screen_back+Title[6][0]+Screen_save
 
 Builder.load_string(
-                    Main+       Main_Button+        Screen_bottom+
+                    Main+       Main_content+       Main_bottom+
                     Monitor+    monitor_subTitle+   monitor_sheet+  Screen_bottom+
                     KnM+        kNm_subTitle+       kNm_sheet+      Screen_bottom+
                     hub+        hub_subTitle+       hub_sheet+      Screen_bottom+
